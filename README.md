@@ -4,9 +4,13 @@
 
 ### A Marketplace
 
-Imagine you're a marketplace website, people come in, make bulk orders of around 50 products, and every order can be fulfulled by an average of 2000 sellers. Customers don't care who's fulfilling their orders, they just care how much they pay. Your goal is to create for them the best possible order, splitting products between sellers according to price and shipping rates.
+![shitty drawing of the process](img/flow.png?raw=true)
 
-![shitty drawing of the process]()
+Imagine you're a marketplace website, people come in, make bulk orders of around 50 products, and every order can be fulfulled by an average of 2000 sellers. Customers don't care who's fulfilling their orders, they just care how much they pay. Your goal is to create for them the best possible order.
+
+What your marketplace does, behind the scenes, is split the products into some of the 2000 sellers, considering their prices, in order to create the cheapest possible order for the customer.
+
+![another shitty drawing of the process](img/sellers.png?raw=true)
 
 ### Orders
 
@@ -14,7 +18,7 @@ In this scenario what matters to us is just the products and the amounts.
 
 One interesting thing about this business, that might matter for coming up with a good solution, is that among the products in the shopping cart, a large part of the paid price is concentrated in few products that are purchased in larger amounts.
 
-![pie chart of price distribution]()
+![pie chart of price distribution](img/pie.png?raw=true)
 
 ### Sellers
 
@@ -89,3 +93,5 @@ Context holds all the information an algorithm will need to crunch through this.
 ## How do I solve it?
 
 The goal is to make something fast, that works for 50 products and 2000 sellers in under 3 secs on a developer laptop, and that still passes the tests.
+
+Replace the `BruceForce` calls in `test.py` with calls to your own class and try to come up with something better =]
