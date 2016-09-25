@@ -10,9 +10,9 @@ Imagine you're a marketplace website, people come in, make bulk orders of around
 
 ### Orders
 
-In this simplified scenario what matters to us is just the products and the amounts.
+In this scenario what matters to us is just the products and the amounts.
 
-One detail that might matter for the chosen solution is that among the 50 products, a large part of the paid price is concentrated in a few products that are purchased in larger amounts.
+One interesting thing about this business, that might matter for coming up with a good solution, is that among the products in the shopping cart, a large part of the paid price is concentrated in few products that are purchased in larger amounts.
 
 ![pie chart of price distribution]()
 
