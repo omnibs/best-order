@@ -6,7 +6,7 @@ class Context:
 		sellercount = len(prices[0])
 		# convention: product ID is its index in the array
 		# 			  seller ID is its index in the array + 100 
-		#			     (to be easily noticeable if we mix them up)
+		#			     (to be easy to spot if we mix them up)
 		self.products = [Product(i, x) for i, x in enumerate(qtys)]
 		self.sellers = [Seller(100+i, minorder, shipping) 
 						for i, (minorder, shipping) 
@@ -48,6 +48,7 @@ class Seller:
 		self.shipping=shipping
 
 class Order:
+	# the calculates the product cost, shipping cost and total cost
 	def __init__(self, ctx, prices):
 		sellers = defaultdict(None)
 		for p in prices:
@@ -81,6 +82,8 @@ class BruceForce:
 		self._ctx = ctx
 		self._lowestPrice = -1
 		self._lowestPriceOrder = []
+		
+		# index prices by product id so it's easier to access them
 		self._prices = defaultdict(list)
 		for p in ctx.prices: self._prices[p.product_id].append(p)
 
@@ -88,6 +91,9 @@ class BruceForce:
 		self.crunch([])
 		return self._lowestPriceOrder
 
+	# crunch is a recursive function
+	# order is our list of selected prices, one for each product in the cart
+	# crunch creates all possible permutations, storing the cheapest found along the way
 	def crunch(self, order):
 		idx = len(order)
 		pid = self._ctx.products[idx].id
@@ -95,8 +101,11 @@ class BruceForce:
 			return
 		for price in self._prices[pid]:
 			if price is None: continue
+			# create a copy of the current order and add this price to it
 			new_order = order[:]
 			new_order.extend([price])
+			# if we have a full order (all products), save it if it's the cheapest seen
+			# otherwise, keep building permutation
 			if (len(new_order) == len(self._ctx.products)):
 				self.save_if_lowest_price(new_order)
 			else:

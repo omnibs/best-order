@@ -10,14 +10,14 @@ class TestBestOrder(unittest.TestCase):
 
 	def test_create_scenario(self):
 		prices = [
-			[1,2,None], # product 0 [price first seller=1, price at ...]
-			[None,2,3]  # product 1 [first seller doesn't carry product, ...]
+			[1,2,None], # product id=0 [$1 at seller 100, $2 at seller 102, not stocked at seller 103]
+			[None,2,3]  # product id=1 [not stocked at seller 101, $2 at seller 102, $3 at seller 103]
 		]
-		qtys = [10,20] # [qty for product 0, qty for product 1]
+		qtys = [10,20] # [10 units of product 0, 20 units of product 1]
 		seller = [
-			(88,10), # first seller (minimum order=88, )
-			(1,10),
-			(10,10),
+			(88,10), # seller id=100: minimum order $88, $10 shipping
+			(1,10),  # seller id=102: minimum order $1, $10 shipping
+			(10,10), # seller id=103: minimum order $10, $10 shipping
 		]
 
 		ctx = Context(prices, qtys, seller)
@@ -32,6 +32,7 @@ class TestBestOrder(unittest.TestCase):
 		self.assertEqual(ctx.prices[0].seller_id, 100)
 		self.assertEqual(ctx.prices[0].price, 1)
 
+	# simplest scenario, 1 product 1 seller, all good
 	def test_takes_orders(self):
 		prices = [[10]]
 		qtys = [4]
@@ -42,6 +43,7 @@ class TestBestOrder(unittest.TestCase):
 		self.assertEqual(order.shipping_total, 10)
 		self.assertEqual(order.total, 50)
 
+	# one product, 3 sellers, clear winner
 	def test_chooses_best_seller_straighforward(self):
 		prices = [[20, 15, 10]]
 		qtys = [4]
@@ -81,7 +83,7 @@ class TestBestOrder(unittest.TestCase):
 
 		self.assertEqual(order.total, 80)
 
-	# shipping of seller 1 is expensive
+	# shipping at seller 1 is expensive
 	# combined shipping of other sellers is more expensive tho
 	def test_pricy_shipping_is_ok_versus_splitting_over_many_sellers(self):
 		prices = [
@@ -104,7 +106,7 @@ class TestBestOrder(unittest.TestCase):
 		self.assertEqual(order.total, 50)
 		self.assertEqual(order.product_total, 30)
 
-	# worst price matches minimum order, but only if all products come from there
+	# worst price is the only one that matches minimum order
 	def test_minimum_order_not_obvious(self):
 		prices = [
 			[30, 10, None,   10],
