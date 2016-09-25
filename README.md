@@ -35,11 +35,13 @@ So some interesting scenarios might come up here:
 
 A hard problem that could be considered here, but wasn't, is when splitting up the quantities for a given product might result in a cheaper order. I've not considered this because it would increase complexity a lot, I believe.
 
-## What's this?
+## What's this? / Motivation
 
 This is a scenario I hit at work once, it seems like a hard problem and I solved it in the best possible way I could in 3 days with no heavy algorithms background to help me. I don't even know what "kind" of algorithm is required to solve this.
 
-I built this simplified version of it because I wanted to discuss with people how to solve it. The original problem dealt with different price tiers for different quantities (50 shirts are cheaper per unit than 10), payment condition discounts (card's more expensive than cash on delivery), and shipping discounts depending on order size (very big orders pay no shipping), so complexity was waaay worse. 
+The original problem dealt with different price tiers for different quantities (50 shirts are cheaper per unit than 10), payment condition discounts (cash on delivery is cheaper), and shipping discounts depending on order size (very big orders pay no shipping), so complexity was waaay worse.
+
+I built this simplified version of it because I wanted to discuss with people how to solve it. I have no idea how good my solution was and I'd like to learn more.
 
 I'm not 100% sure the best algorithm for this simplified scenario would be good for the real one, but we'll find out.
 
