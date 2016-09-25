@@ -41,7 +41,7 @@ This is a scenario I hit at work once, it seems like a hard problem and I solved
 
 The original problem dealt with different price tiers for different quantities (50 shirts are cheaper per unit than 10), payment condition discounts (cash on delivery is cheaper), and shipping discounts depending on order size (very big orders pay no shipping), so complexity was waaay worse.
 
-I built this simplified version of it because I wanted to discuss with people how to solve it. I have no idea how good my solution was and I'd like to learn more.
+I built this simplified version of it because I wanted to discuss with people how to solve it. I have no idea how good my original solution was and I'd like to learn more. I'll put my solution here later.
 
 I'm not 100% sure the best algorithm for this simplified scenario would be good for the real one, but we'll find out.
 
@@ -94,6 +94,6 @@ Context holds all the information an algorithm will need to crunch through this.
 
 ## How do I solve it?
 
-The goal is to make something fast, that works for 50 products and 2000 sellers in under 3 secs on a developer laptop, and that still passes the tests.
+The goal is to make something fast. Fast, for me, meant a single-threaded solution that works for 50 products and 2000 sellers in under 3 secs on a high-end developer laptop and that still passes all the tests.
 
 Replace the `BruceForce` calls in `test.py` with calls to your own class and try to come up with something better =]
