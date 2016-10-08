@@ -1,5 +1,6 @@
 import unittest
 from order import Product, Context, BruceForce
+from solution_joe import LinOpt
 
 class TestBestOrder(unittest.TestCase):
 
@@ -128,34 +129,54 @@ class TestBestOrder(unittest.TestCase):
 		self.assertEqual(order.total, 140)
 		self.assertEqual(order.product_total, 90)
 
-	def test_too_slow_for_bruteforce(self):
+	def test_scipy(self):
 		prices = [
-			[1001, 101, 10, 10],
-			[1002, 100, 50, 50],
-			[1001, 101, 10, 10],
-			[1002, 100, 50, 50],
-			[1001, 101, 10, 10],
-			[1002, 100, 50, 50],
-			[1001, 101, 10, 10],
-			[1002, 100, 50, 50],
-			[1001, 101, 10, 10],
-			[1002, 100, 50, 50],
-			[1001, 101, 10, 10],
-			[1002, 100, 50, 50],
-			[1001, 101, 10, 10],
-			[1002, 100, 50, 50],
-			[1001, 101, 10, 10]
+			[30, 10,   10],
+			[30, 20,   10],
+			[30,  5,   10]
 		]
-		qtys = [1, 2, 3, 1, 1, 2, 2, 3, 2, 1]
+		qtys = [3,3,3]
 		seller = [
-			(0,1),
-			(0,2),
-			(0,3),
-			(0,1)
+			(5, 50), # <<-- its a stab in the eye, but it's the only one that works
+			(5, 10), # <<-- almost, we max out at $35
+			(5, 10), # <<-- hit max, but doesn't have all products so no good
+			(5, 10)  # <<-- same
 		]
 
 		ctx = Context(prices, qtys, seller)
-		order = BruceForce(ctx).create_order()
+		res = LinOpt(ctx).create_order()
+
+		print(res)
+
+
+	# def test_too_slow_for_bruteforce(self):
+	# 	prices = [
+	# 		[1001, 101, 10, 10],
+	# 		[1002, 100, 50, 50],
+	# 		[1001, 101, 10, 10],
+	# 		[1002, 100, 50, 50],
+	# 		[1001, 101, 10, 10],
+	# 		[1002, 100, 50, 50],
+	# 		[1001, 101, 10, 10],
+	# 		[1002, 100, 50, 50],
+	# 		[1001, 101, 10, 10],
+	# 		[1002, 100, 50, 50],
+	# 		[1001, 101, 10, 10],
+	# 		[1002, 100, 50, 50],
+	# 		[1001, 101, 10, 10],
+	# 		[1002, 100, 50, 50],
+	# 		[1001, 101, 10, 10]
+	# 	]
+	# 	qtys = [1, 2, 3, 1, 1, 2, 2, 3, 2, 1]
+	# 	seller = [
+	# 		(0,1),
+	# 		(0,2),
+	# 		(0,3),
+	# 		(0,1)
+	# 	]
+	#
+	# 	ctx = Context(prices, qtys, seller)
+	# 	order = BruceForce(ctx).create_order()
 
 if __name__ == '__main__':
 	unittest.main()
